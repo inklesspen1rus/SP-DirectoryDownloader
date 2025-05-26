@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Release 
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup SP
+        id: setup_sp
+        uses: rumblefrog/setup-sp@master
+        with:
+          version: "1.12.x"
+
+      - run: spcomp '-DPLUGIN_VERSION="${{ github.ref_name }}"' scripting/directorydownloader.sp -o plugins/directorydownloader.smx
+      
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: |
+            configs
+            plugins
+            scripting

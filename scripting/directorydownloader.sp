@@ -132,7 +132,7 @@ public void OnMapStart()
 	g_mIgnore = null;
 
 	if (IsDownloadsTableFull())
-		LogMessage("[DDownloader] Downloads Table is full! Not all of your files will be downloaded!");
+		LogError("[DDownloader] Downloads Table is full! Not all of your files will be downloaded!");
 }
 
 void Downloads_LoadDirectory(const char[] dirpath, bool recursive = false)

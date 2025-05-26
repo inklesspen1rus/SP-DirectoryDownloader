@@ -22,6 +22,8 @@ jobs:
       - run: mkdir plugins
       - run: spcomp 'PLUGIN_VERSION="${{ github.ref_name }}"' scripting/directorydownloader.sp -o plugins/directorydownloader.smx
       
+      - run: zip release configs/* plugins/* scripting/*
+
       - name: Create Release
         id: create_release
         uses: softprops/action-gh-release@v2
@@ -29,6 +31,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           files: |
-            configs/*
-            plugins/*
-            scripting/*
+            release.zip

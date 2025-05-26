@@ -130,6 +130,9 @@ public void OnMapStart()
 	}
 	if(g_mIgnore)	g_mIgnore.Close();
 	g_mIgnore = null;
+
+	if (IsDownloadsTableFull())
+		LogMessage("[DDownloader] Downloads Table is full! Not all of your files will be downloaded!");
 }
 
 void Downloads_LoadDirectory(const char[] dirpath, bool recursive = false)
@@ -175,9 +178,9 @@ void LoadFile(char[] sPath)
 		if(!g_bPrecache)	return;
 		if(!strcmp(sPath[size-4], ".mdl") && strncmp(sPath, "models/", 7) == 0) // Надеемся, что файл в models/
 			PrecacheModel(sPath);
-		else if(!strcmp(sPath[size-4], ".mp3"))
+		else if(!strcmp(sPath[size-4], ".mp3") || !strcmp(sPath[size-4], ".wav"))
 		{
-			// Подразумивается, что файл находится в sound/
+			// Предполагается, что файл находится в sound/
 			if(FakePrecache)
 			{
 				sPath[5] = '*';
@@ -187,4 +190,12 @@ void LoadFile(char[] sPath)
 				PrecacheSound(sPath[6]);
 		}
 	}
+}
+
+bool IsDownloadsTableFull()
+{
+	static int table = -1;
+	if (table == -1)
+		table = FindStringTable("downloadables");
+	return GetStringTableNumStrings(table) == GetStringTableMaxStrings(table)
 }

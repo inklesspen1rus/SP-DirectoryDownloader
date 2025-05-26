@@ -19,6 +19,7 @@ jobs:
         with:
           version: "1.12.x"
 
+      - run: mkdir plugins
       - run: spcomp '-DPLUGIN_VERSION="${{ github.ref_name }}"' scripting/directorydownloader.sp -o plugins/directorydownloader.smx
       
       - name: Create Release

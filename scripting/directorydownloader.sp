@@ -11,7 +11,7 @@ bool g_bDebug = true;
 File g_hIgnorePushFile = null;
 StringMap g_mIgnore;
 
-#ifndef PLUGIN_VERSION
+#if !defined PLUGIN_VERSION
 #define PLUGIN_VERSION "dev"
 #endif
 

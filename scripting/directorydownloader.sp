@@ -197,5 +197,5 @@ bool IsDownloadsTableFull()
 	static int table = -1;
 	if (table == -1)
 		table = FindStringTable("downloadables");
-	return GetStringTableNumStrings(table) == GetStringTableMaxStrings(table)
+	return GetStringTableNumStrings(table) == GetStringTableMaxStrings(table);
 }
